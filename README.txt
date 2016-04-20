@@ -16,6 +16,24 @@ Once installed, capability "block/massaction:use" needs to be added to the roles
 
 
 RELEASE NOTE
+[2016030400]
+- Fix bug with Flexible Sections course format where multiple checkboxes would be
+  displayed for each activity in a sub-section
+
+[2016022400]
+- Add 'Duplicate to' functionality from Matt Davidson (syxton)
+
+[2015120100]
+- Merge a deletion confirmation prompt from Rex Lorenzo (rlorenzo)
+
+[2015091400]
+- Improved checkbox processing to make it more robust, in case there are non-input
+  elements with an id matching the expected pattern
+
+[2015032600]
+- Updated applicable_formats() to allow any course format, while still
+  preventing plugins and tags from using this block (sharpchi)
+
 [2015022700]
 - Renamed README to README.txt
 - Added $plugin->component for Moodle 3.0 compatibility

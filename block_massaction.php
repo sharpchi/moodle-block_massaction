@@ -15,12 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    blocks
- * @subpackage massaction
+ * @package    block_massaction
  * @copyright  2013 University of Minnesota
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 
 class block_massaction extends block_base {
 
@@ -31,14 +29,12 @@ class block_massaction extends block_base {
         $this->title = get_string('blocktitle', 'block_massaction');
     }
 
-
     /**
      * @see block_base::applicable_formats()
      */
     function applicable_formats() {
-	return array('course-view' => true, 'mod' => false, 'tag' => false);
+	    return array('course-view' => true, 'mod' => false, 'tag' => false);
     }
-
 
     /**
      * no need to have multiple blocks to perform the same functionality
@@ -46,7 +42,6 @@ class block_massaction extends block_base {
     function instance_allow_multiple() {
         return false;
     }
-
 
     /**
      * @see block_base::get_content()
@@ -73,7 +68,8 @@ class block_massaction extends block_base {
                     array('section', 'block_massaction'),
                     array('section_zero', 'block_massaction'),
                     array('selecttarget', 'block_massaction'),
-                    array('noitemselected', 'block_massaction')
+                    array('noitemselected', 'block_massaction'),
+                    array('confirmation', 'block_massaction')
                 )
             );
 
@@ -87,7 +83,8 @@ class block_massaction extends block_base {
             	'allitems'              => get_string('allitems', 'block_massaction'),
             	'deselectall'           => get_string('deselectall', 'block_massaction'),
                 'withselected'	        => get_string('withselected', 'block_massaction'),
-                'action_movetosection'	=> get_string('action_movetosection', 'block_massaction')
+                'action_movetosection'	=> get_string('action_movetosection', 'block_massaction'),
+                'action_duptosection'	=> get_string('action_duptosection', 'block_massaction')
             );
 
             $this->content->text  = <<< EOB
@@ -101,14 +98,15 @@ class block_massaction extends block_base {
 {$str['withselected']}:
 EOB;
 
-            // print the action links
+            // Print the action links.
             $action_icons = array(
                 'moveleft'     => 't/left',
                 'moveright'    => 't/right',
                 'hide'         => 't/show',
                 'show'         => 't/hide',
                 'delete'       => 't/delete'
-                //'moveto'     => 't/move'
+                //'moveto'     => 't/move',
+                //'dupto'      => 't/duplicate'
             );
 
             foreach ($action_icons as $action => $icon_path) {
@@ -127,7 +125,9 @@ EOB;
 <select id="mod-massaction-control-section-list-moveto">
 	<option value="">{$str['action_movetosection']}</option>
 </select>
-
+<select id="mod-massaction-control-section-list-dupto">
+	<option value="">{$str['action_duptosection']}</option>
+</select>
 <form id="mod-massaction-control-form" name="mod-massaction-control-form" action="{$CFG->wwwroot}/blocks/massaction/action.php" method="POST">
 	<input type="hidden" id="mod-massaction-control-request" name="request" value="">
 	<input type="hidden" id="mod-massaction-instance_id" name="instance_id" value="{$this->instance->id}">
