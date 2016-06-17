@@ -109,5 +109,7 @@ module_selector.prototype.get_section_structure = function() {
 module_selector.prototype.init = function() {
     var self = this;
 
+    Y.one('div.block_massaction_jsdisabled').addClass('hidden');
+    Y.one('div.block_massaction_jsenabled').removeClass('hidden');
     self.add_checkboxes();
 };
